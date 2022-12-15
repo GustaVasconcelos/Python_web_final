@@ -1,0 +1,38 @@
+
+{% extends "tasks/layout.html" %}
+{% load static %}
+
+{% block body %}
+<section id="container-img">
+    <img src="{% static 'tasks/imgs/fundo.png'%}" alt="">
+</section>
+<section id="container-tasks">
+    <div id="container-form-lista">
+        <div id="container-form">
+            <h2>Bem vindo ao saveTasks em django</h2>
+            <form action="{% url 'tasks:index' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input class="inputSubmit"type="submit" value="adicionar">
+            </form>
+        </div>
+        <div id="container-lista-tasks">
+            <ul>
+
+                {% for task in tasks%}
+                    <li>
+                        <div id="task">
+                            <h2>{{task}}</h2>
+                        </div>
+                        <div id="button">
+                            <a href="">X</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
