@@ -10,22 +10,26 @@
     <div id="container-form-lista">
         <div id="container-form">
             <h2>Bem vindo ao saveTasks em django</h2>
-            <form action="{% url 'tasks:index' %}" method="post">
+            <form action="{% url 'add_task' %}" method="POST">
                 {% csrf_token %}
-                {{ form }}
+                <input type="text" placeholder="Insira sua task" name="tarefa">
                 <input class="inputSubmit"type="submit" value="adicionar">
             </form>
         </div>
         <div id="container-lista-tasks">
             <ul>
 
-                {% for task in tasks%}
+                {% for task in tasks %}
                     <li>
                         <div id="task">
-                            <h2>{{task}}</h2>
+                            <h3>{{task}}</h3>
                         </div>
-                        <div id="button">
-                            <a href="">X</a>
+                        <div id="task-remove">
+                            <form action="{% url 'del_task' %}" method="POST">
+                                {% csrf_token %}
+                                <input style="display:none" type="text" name="del-task" value="{{task.id}}">
+                                <input type="submit" value="x">
+                            </form>
                         </div>
                     </li>
                 {% endfor %}
